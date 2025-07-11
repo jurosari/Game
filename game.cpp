@@ -27,23 +27,28 @@ class Character{
         void Introduction(){
             std::cout<<"Name: " << Name << std::endl;
             std::cout<<"HP: " << HP << " ATK: " << ATK << " DEF: " << DEF << std::endl;
-            std::cout<<"Moves: " << Move1 << " " << Move2 << " " << Move3 << std::endl;  
+            std::cout<<"Moves: " << Move1 << ", " << Move2 << ", and " << Move3 << std::endl;  
         }
 
         void MoveUse1(){ //Mainly the attack towards someone
-            std::cout << "You attacked "  << Name << " using" << Move1 << "!" << std::endl;
+            std::cout << Name << " used " << Move1 << "!" << std::endl;
             std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
         }
 
         void MoveUse2(){ //Mainly a buff towards someone
-            std::cout << "You buffed " << Name << " using " << Move1 << "!" << std::endl;
+            std::cout << Name << " buffed his ally using " << Move1 << "!" << std::endl;
             std::cout << "It added " << MoveEffect1 << " more to what you've selected to buff" << "! (Don't ask me what... you made the move)" << std::endl;
 
         }
 
         void MoveUse3(){ //Ultimate move, use polymorphism if the one using is the player (fusion) or Enemy (Another move)
-            std::cout << "You used " << Move3 << " to " << Name << "!" << std::endl;
+            std::cout << Name << " used " << Move3 << "!" << std::endl;
+            std::cout << "It did " << MoveEffect3 << " Damage" << "!" << std::endl;
         }
+
+        //void DamageRecieve1(){
+        //    std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;  
+        //}
 
         void Faint(){
             std::cout<< Name << " has fainted!" << std::endl;
@@ -60,7 +65,14 @@ class Player: public Character{
 
 class Fusion: public Player{
     public:
+        std::string Move4;
         int MoveEffect4;
+
+        void Introduction(){
+            std::cout<<"Name: " << Name << std::endl;
+            std::cout<<"HP: " << HP << " ATK: " << ATK << " DEF: " << DEF << std::endl;
+            std::cout<<"Moves: " << Move1 << ", " << Move2 << "," << Move3 << " , and " << Move4 << std::endl;  
+        }
 };
 
 class Enemy: Character{
@@ -87,6 +99,7 @@ int main(){
     P1.MoveEffect3 = 0;
 
     P1.Introduction();
+    P1.MoveUse1();
     
 
     return 0;
