@@ -36,8 +36,8 @@ class Character{
         }
 
         void MoveUse2(){ //Mainly a buff towards someone
-            std::cout << Name << " buffed his ally using " << Move1 << "!" << std::endl;
-            std::cout << "It added " << MoveEffect1 << " more to what you've selected to buff" << "! (Don't ask me what... you made the move)" << std::endl;
+            std::cout << Name << " buffed his ally using " << Move2 << "!" << std::endl;
+            std::cout << "It added " << MoveEffect2 << " more to what you've selected to buff" << "! (Don't ask me what... you made the move)" << std::endl;
 
         }
 
@@ -58,7 +58,7 @@ class Character{
 class Player: public Character{
     public:
         void MoveUse3(){ //FUSION HA
-            std::cout << "You Fused with " << Name <<  "!" << std::endl;
+            std::cout << "You Fused with you ally!" << std::endl;
         }
         
 };
@@ -100,7 +100,19 @@ int main(){
 
     P1.Introduction();
     P1.MoveUse1();
-    
+    P1.MoveUse2();
+    P1.MoveUse3();
 
+    
+    
+    for(int i = 10; P1.HP >= 0; P1.HP = P1.HP - i){
+        if(P1.HP == 0){
+            P1.Faint();
+        }
+        else{
+            std::cout << P1.Name << "'s HP = " << P1.HP << std::endl;
+        }
+    }
+    
     return 0;
 }
