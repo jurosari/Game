@@ -32,7 +32,7 @@ class Character{
 
         void MoveUse1(){ //Mainly the attack towards someone
             std::cout << Name << " used " << Move1 << "!" << std::endl;
-            std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
+            //std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
         }
 
         void MoveUse2(){ //Mainly a buff towards someone
@@ -43,7 +43,7 @@ class Character{
 
         void MoveUse3(){ //Ultimate move, use polymorphism if the one using is the player (fusion) or Enemy (Another move)
             std::cout << Name << " used " << Move3 << "!" << std::endl;
-            std::cout << "It did " << MoveEffect3 << " Damage" << "!" << std::endl;
+            //std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
         }
 
         //void DamageRecieve1(){
@@ -92,10 +92,10 @@ int main(){
     P1.ATK = 25; 
     P1.DEF = 25;
     P1.Move1 = "Dempsey Roll"; 
-    P1.Move2 = "Taunt";
+    P1.Move2 = "Charge";
     P1.Move3 = "Fusion";    
     P1.MoveEffect1 = 40; 
-    P1.MoveEffect2 = 25;  
+    P1.MoveEffect2 = 5;  
     P1.MoveEffect3 = 0;
 
     P1.Introduction();
@@ -103,9 +103,51 @@ int main(){
     P1.MoveUse2();
     P1.MoveUse3();
 
+    Player P2;
+    P2.Name = "Tos";
+    P2.HP = 75;
+    P2.ATK = 25; 
+    P2.DEF = 50;
+    P2.Move1 = "Gazelle Punch"; 
+    P2.Move2 = "Block";
+    P2.Move3 = "Fusion";    
+    P2.MoveEffect1 = 40; 
+    P2.MoveEffect2 = 5;  
+    P2.MoveEffect3 = 0;
+
+    P2.Introduction();
+    P2.MoveUse1();
+    P2.MoveUse2();
+    P2.MoveUse3();
+    std::cout << std::endl << std::endl;
+
+    while(true){
+        if(P1.HP <= 0){
+            P1.Faint();
+            break;
+        }else if (P2.HP <= 0){
+            P2.Faint();
+            break;
+        }else{
+            P1.Introduction();
+            P1.MoveUse1();
+            P2.HP = P2.HP - (P1.MoveEffect1*((float)P1.ATK/100)/((float)P2.DEF/100));
+            P2.Introduction();
+            P2.MoveUse2();
+            P2.DEF = P2.DEF + 5;
+            P1.Introduction();
+            P1.MoveUse2();
+            P1.ATK = P1.ATK + 5;
+            P2.Introduction();
+            P2.MoveUse1();
+            P1.HP = P1.HP - (P2.MoveEffect1*((float)P2.ATK/100)/((float)P1.DEF/100));
+        }
+    }
+
+
     
-    
-    for(int i = 10; P1.HP >= 0; P1.HP = P1.HP - i){
+    /*
+    for(int i = 10; P1.HP >= 0; P1.HP = P1.HP - i){ //See why its behaving differrent when ==
         if(P1.HP == 0){
             P1.Faint();
         }
@@ -113,6 +155,8 @@ int main(){
             std::cout << P1.Name << "'s HP = " << P1.HP << std::endl;
         }
     }
-    
+
+    P1.Introduction();
+    */
     return 0;
 }
