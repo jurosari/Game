@@ -74,10 +74,17 @@ int main(){
     //std::int Stats
     //std::string Category[2] = ["Warrior", "Mage"]; //I want the player to select one of the 2 or both of the category
 
-    Player P1 = {P1.Name = "Juan", 
-        P1.HP = 100, P1.ATK = 25, P1.DEF = 25, 
-        P1.Move1 = "Dempsey Roll", P1.Move2 = "Taunt", P1.Move3 = "Fusion", 
-        P1.MoveEffect1 = 40, P1.MoveEffect2 = 25,  P1.MoveEffect3 = 0};
+    Player P1;
+    P1.Name = "Juan";
+    P1.HP = 100;
+    P1.ATK = 25; 
+    P1.DEF = 25;
+    P1.Move1 = "Dempsey Roll"; 
+    P1.Move2 = "Taunt";
+    P1.Move3 = "Fusion";    
+    P1.MoveEffect1 = 40; 
+    P1.MoveEffect2 = 25;  
+    P1.MoveEffect3 = 0;
 
     P1.Introduction();
     
