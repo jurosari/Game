@@ -14,9 +14,9 @@ class Character{
         int HP;
         int ATK;
         int DEF;
-        //int Stats[2] = [HP,ATK,DEF]; //I want to store the selected variables here, but there's an error
-        //std::string Category[2] = ["Warrior", "Mage"]; //I want the player to select one of the 2 or both of the category
-        std::string MoveSet[];
+        //int Stats[3] = [HP,ATK,DEF]; //I want to store the selected variables here, but there's an error
+        
+        //std::string MoveSet[]; //It is a flexible array, need to fix
         
 
         
@@ -33,12 +33,13 @@ class Character{
         }
 };
 
-class Player{
+class Player: Character{
     public:
+        //std::string Category[2] = ["Warrior", "Mage"]; //I want the player to select one of the 2 or both of the category
         std::string MoveEffect[4];
 };
 
-class Enemy{
+class Enemy: Character{
     public:
         std::string MoveEffect[3];
 };
