@@ -14,39 +14,65 @@ class Character{
         int HP;
         int ATK;
         int DEF;
-        //int Stats[3] = [HP,ATK,DEF]; //I want to store the selected variables here, but there's an error
+        std::string Move1;
+        std::string Move2;
+        std::string Move3;
+        int MoveEffect1;
+        int MoveEffect2;
+        int MoveEffect3;
         
-        //std::string MoveSet[]; //It is a flexible array, need to fix
         
 
         
         void Introduction(){
-                    
+            std::cout<<"Name: " << Name << std::endl;
+            std::cout<<"HP: " << HP << " ATK: " << ATK << " DEF: " << DEF << std::endl;
+            std::cout<<"Moves: " << Move1 << " " << Move2 << " " << Move3 << std::endl;  
         }
 
-        void MoveUse(){
+        void MoveUse1(){ //Mainly the attack towards someone
+            std::cout << "You attacked "  << Name << " using" << Move1 << "!" << std::endl;
+            std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
+        }
 
+        void MoveUse2(){ //Mainly a buff towards someone
+            std::cout << "You buffed " << Name << " using " << Move1 << "!" << std::endl;
+            std::cout << "It added " << MoveEffect1 << " more to what you've selected to buff" << "! (Don't ask me what... you made the move)" << std::endl;
+
+        }
+
+        void MoveUse3(){ //Ultimate move, use polymorphism if the one using is the player (fusion) or Enemy (Another move)
+            std::cout << "You used " << Move3 << " to " << Name << "!" << std::endl;
         }
 
         void Faint(){
-
+            std::cout<< Name << " has fainted!" << std::endl;
         }
 };
 
 class Player: Character{
     public:
-        //std::string Category[2] = ["Warrior", "Mage"]; //I want the player to select one of the 2 or both of the category
-        std::string MoveEffect[4];
+        void MoveUse3(){ //FUSION HA
+            std::cout << "You Fused with " << Name <<  "!" << std::endl;
+        }
+        
+};
+
+class Fusion: Player{
+    public:
+        int MoveEffect4;
 };
 
 class Enemy: Character{
-    public:
-        std::string MoveEffect[3];
+    
+       
 };
 
 
 int main(){
-    
+    //std::string MoveSet
+    //std::int Stats
+    //std::string Category[2] = ["Warrior", "Mage"]; //I want the player to select one of the 2 or both of the category
 
     return 0;
 }
