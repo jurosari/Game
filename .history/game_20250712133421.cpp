@@ -195,7 +195,7 @@ int main(){
                 if (points_used >= 100){
                     std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                 }else{
-                    P1.HP += points_used;
+                    P1.HP = points_used;
                     points -= points_used; 
                 }
                 
@@ -205,7 +205,7 @@ int main(){
                 if(points_used > points){
                     std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                 }else{
-                    P1.HP += points_used;
+                    P1.HP = points_used;
                     points -= points_used;
                 }
                 
@@ -219,7 +219,7 @@ int main(){
                 if (points_used >= 100){
                     std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                 }else{
-                    P1.ATK += points_used;
+                    P1.ATK = points_used;
                     points -= points_used; 
                 }
                 
@@ -229,7 +229,7 @@ int main(){
                 if(points_used > points){
                     std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                 }else{
-                    P1.ATK += points_used;
+                    P1.ATK = points_used;
                     points -= points_used;
                 }
                 
@@ -242,7 +242,7 @@ int main(){
                 if (points_used >= 100){
                     std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                 }else{
-                    P1.ATK += points_used;
+                    P1.ATK = points_used;
                     points -= points_used; 
                 }
                 
@@ -252,7 +252,7 @@ int main(){
                 if(points_used > points){
                     std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                 }else{
-                    P1.ATK += points_used;
+                    P1.ATK = points_used;
                     points -= points_used;
                 }
                 
@@ -264,8 +264,6 @@ int main(){
         std::cout << "I feel sorry that you think you outsmarted me." << std::endl;
         std::cout <<"You got 1 point for the left-out attributes, yet you know that you are screwed regardless..." << std::endl;
     }
-
-    P1.Introduction();
     
 
 

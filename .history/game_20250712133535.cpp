@@ -195,7 +195,7 @@ int main(){
                 if (points_used >= 100){
                     std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                 }else{
-                    P1.HP += points_used;
+                    P1.HP = points_used;
                     points -= points_used; 
                 }
                 
@@ -205,7 +205,7 @@ int main(){
                 if(points_used > points){
                     std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                 }else{
-                    P1.HP += points_used;
+                    P1.HP = points_used;
                     points -= points_used;
                 }
                 
@@ -219,7 +219,7 @@ int main(){
                 if (points_used >= 100){
                     std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                 }else{
-                    P1.ATK += points_used;
+                    P1.ATK = points_used;
                     points -= points_used; 
                 }
                 
@@ -229,7 +229,7 @@ int main(){
                 if(points_used > points){
                     std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                 }else{
-                    P1.ATK += points_used;
+                    P1.ATK = points_used;
                     points -= points_used;
                 }
                 
@@ -242,7 +242,7 @@ int main(){
                 if (points_used >= 100){
                     std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                 }else{
-                    P1.ATK += points_used;
+                    P1.ATK = points_used;
                     points -= points_used; 
                 }
                 
@@ -252,7 +252,7 @@ int main(){
                 if(points_used > points){
                     std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                 }else{
-                    P1.ATK += points_used;
+                    P1.ATK = points_used;
                     points -= points_used;
                 }
                 
