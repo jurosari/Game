@@ -184,7 +184,7 @@ int main(){
     std::cout << "You can customize your character's name, stats, and move from the get-go and see how many bossess you can defeat!" << std::endl << std::endl;
     while(points > 0){
         points_used = 0;
-        std::cout << "You have a total of " << points << " points to customize your (1) HP, (2) ATK, and (3) DEF, where do you want to start?" << std::endl;
+        std::cout << "You have a total of " << points << " points to customize your (1) HP, (2) ATK, and (3) DEF, where do you want to start? ";
         std::cin >> stat_choice;
         std::cout << std::endl;
         if(stat_choice == "HP" || stat_choice == "hp" || stat_choice == "1"){
@@ -211,52 +211,6 @@ int main(){
                 
             }
             
-        }else if(stat_choice == "ATK" || stat_choice == "atk" || stat_choice == "2"){
-            if(points == 100){
-                std::cout << "How many points points will you be using? Don't put all eggs in one basket!: ";
-                std::cin >> points_used;
-                std::cout << std::endl;
-                if (points_used >= 100){
-                    std::cout << "Don't do that. You probably forgot how to read." << std::endl;
-                }else{
-                    P1.ATK = points_used;
-                    points -= points_used; 
-                }
-                
-            }else{
-                std::cout << std::endl << "How many points are will you be using? ";
-                std::cin >> points_used;
-                if(points_used > points){
-                    std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
-                }else{
-                    P1.ATK = points_used;
-                    points -= points_used;
-                }
-                
-            }
-        }else if(stat_choice == "DEF" || stat_choice == "def" || stat_choice == "3"){
-            if(points == 100){
-                std::cout << "How many points points will you be using? Don't put all eggs in one basket!: ";
-                std::cin >> points_used;
-                std::cout << std::endl;
-                if (points_used >= 100){
-                    std::cout << "Don't do that. You probably forgot how to read." << std::endl;
-                }else{
-                    P1.ATK = points_used;
-                    points -= points_used; 
-                }
-                
-            }else{
-                std::cout << std::endl << "How many points are will you be using? ";
-                std::cin >> points_used;
-                if(points_used > points){
-                    std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
-                }else{
-                    P1.ATK = points_used;
-                    points -= points_used;
-                }
-                
-            }
         }
     }
     

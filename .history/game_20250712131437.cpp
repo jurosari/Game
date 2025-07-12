@@ -234,30 +234,7 @@ int main(){
                 }
                 
             }
-        }else if(stat_choice == "DEF" || stat_choice == "def" || stat_choice == "3"){
-            if(points == 100){
-                std::cout << "How many points points will you be using? Don't put all eggs in one basket!: ";
-                std::cin >> points_used;
-                std::cout << std::endl;
-                if (points_used >= 100){
-                    std::cout << "Don't do that. You probably forgot how to read." << std::endl;
-                }else{
-                    P1.ATK = points_used;
-                    points -= points_used; 
-                }
-                
-            }else{
-                std::cout << std::endl << "How many points are will you be using? ";
-                std::cin >> points_used;
-                if(points_used > points){
-                    std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
-                }else{
-                    P1.ATK = points_used;
-                    points -= points_used;
-                }
-                
-            }
-        }
+        }else if(stat_choice == "DEF" || stat_choice == "def" || stat_choice == "3")
     }
     
 
