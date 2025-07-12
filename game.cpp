@@ -131,7 +131,7 @@ int main(){
         }else{
             P1.Introduction();
             P1.MoveUse1();
-            P2.HP = P2.HP - (P1.MoveEffect1*((float)P1.ATK/100)/((float)P2.DEF/100));
+            P2.HP = P2.HP - (P1.MoveEffect1*((float)P1.ATK/100)/((float)P2.DEF/100)); //Formula for damage towards 
             P2.Introduction();
             P2.MoveUse2();
             P2.DEF = P2.DEF + 5;
@@ -143,6 +143,48 @@ int main(){
             P1.HP = P1.HP - (P2.MoveEffect1*((float)P2.ATK/100)/((float)P1.DEF/100));
         }
     }
+
+    
+    std::cout << std::endl << "Demo done!" << std::endl;
+
+    std::string stat_choice;
+    int points = 100;
+    int points_used;
+
+    
+    P1.HP = 100;
+    P1.ATK = 25; 
+    P1.DEF = 25;
+
+    
+    P2.HP = 100;
+    P2.ATK = 25; 
+    P2.DEF = 25;
+
+    std::cout << "Welcome to The Game!" << std::endl;
+    std::cout << "You can customize your character's name, stats, and move from the get-go and see how many bossess you can defeat!" << std::endl << std::endl;
+    while(points > 0){
+        points_used = 0;
+        std::cout << "You have a total of" << points << "points to customize your (1) HP, (2) ATK, and (3) DEF, where do you want to start?" << std::endl;
+        std::cin >> stat_choice;
+        if(stat_choice == "HP" || stat_choice == "hp" || stat_choice == "1"){
+            if(points == 100){
+                std::cout << std::endl << "How many points points will you be using? Don't put all eggs in one basket!: ";
+                std::cin >> points_used;
+                P1.HP = points_used;
+                points -= points_used;
+            }else{
+                std::cout << std::endl << "How many points are will you be using? ";
+                std::cin >> points_used;
+                P1.HP = points_used;
+                points -= points_used;
+            }
+            
+        }
+    }
+    
+
+
 
 
     
