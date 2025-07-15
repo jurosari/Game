@@ -115,7 +115,7 @@ void demo_play(){
     }
 
 
-    void customize_stats(){
+    void customize(){
         std::cout << "You can customize your character's name, stats, and move from the get-go and see how many bossess you can defeat!" << std::endl << std::endl;
         while(points != 0){
             points_used = 0;
@@ -267,7 +267,7 @@ int main(){
     P2.DEF = 0;
 
     std::cout << "Welcome to The Game!" << std::endl;
-    customize_stats();
+    customize();
     std::cout << std::endl;
     if (P1.HP == 100 || P1.ATK == 100 || P1.DEF == 100){ //We can do this as a function
         std::cout << "I feel sorry that you think you outsmarted me." << std::endl;
