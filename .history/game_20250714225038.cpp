@@ -8,9 +8,6 @@ I want to build a video game where you are controlling 2 character in a turn bas
 
 #include <iostream>
 #include <type_traits>
-#include <string>
-#include <limits>
-
 class Character{
     public:
         std::string Name;
@@ -205,7 +202,6 @@ void demo_play(){
         }
 
     void customize_moves(){
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Name your first move (Context: This one is for damaging foes!): ";
         std::getline(std::cin, MoveSet);
         P1.Move1 = MoveSet;

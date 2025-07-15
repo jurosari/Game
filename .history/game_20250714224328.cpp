@@ -8,9 +8,6 @@ I want to build a video game where you are controlling 2 character in a turn bas
 
 #include <iostream>
 #include <type_traits>
-#include <string>
-#include <limits>
-
 class Character{
     public:
         std::string Name;
@@ -205,9 +202,8 @@ void demo_play(){
         }
 
     void customize_moves(){
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Name your first move (Context: This one is for damaging foes!): ";
-        std::getline(std::cin, MoveSet);
+        std::cin >> MoveSet;
         P1.Move1 = MoveSet;
         std::cout << std::endl;
         std::cout << "Name your second move (Context: This one is buff YOUR HP, ATK and/or DEF!): ";
@@ -299,7 +295,10 @@ int main(){
     customize_stats();
     customize_moves();
     std::cout << std::endl;
-    
+    if (P1.HP == 100 || P1.ATK == 100 || P1.DEF == 100){ //We can do this as a function
+        std::cout << "I feel sorry that you think you outsmarted me." << std::endl;
+        std::cout <<"You got 1 point for the left-out attributes, yet you know that you are screwed regardless..." << std::endl;
+    }
 
     P1.Introduction();
     

@@ -7,9 +7,6 @@ I want to build a video game where you are controlling 2 character in a turn bas
 */ 
 
 #include <iostream>
-#include <type_traits>
-#include <string>
-#include <limits>
 
 class Character{
     public:
@@ -88,8 +85,6 @@ Player P2;
 std::string stat_choice;
 int points = 100;
 int points_used;
-std::string MoveSet;
-std::string choose_HP_ATK_or_DEF;
 
 void demo_play(){
         while(true){
@@ -132,7 +127,7 @@ void demo_play(){
                     std::cout << "How many points points will you be using? Don't put all eggs in one basket!: ";
                     std::cin >> points_used;
                     std::cout << std::endl;
-                    if (points_used >= 100 || std::is_same<decltype(points_used), std::string>::value){
+                    if (points_used >= 100){
                         std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                     }else{
                         P1.HP += points_used;
@@ -142,7 +137,7 @@ void demo_play(){
                 }else{
                     std::cout << std::endl << "How many points are will you be using? ";
                     std::cin >> points_used;
-                    if(points_used > points || std::is_same<decltype(points_used), std::string>::value){
+                    if(points_used > points){
                         std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                     }else{
                         P1.HP += points_used;
@@ -156,7 +151,7 @@ void demo_play(){
                     std::cout << "How many points points will you be using? Don't put all eggs in one basket!: ";
                     std::cin >> points_used;
                     std::cout << std::endl;
-                    if (points_used >= 100 || std::is_same<decltype(points_used), std::string>::value){
+                    if (points_used >= 100){
                         std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                     }else{
                         P1.ATK += points_used;
@@ -166,7 +161,7 @@ void demo_play(){
                 }else{
                     std::cout << std::endl << "How many points are will you be using? ";
                     std::cin >> points_used;
-                    if(points_used > points || std::is_same<decltype(points_used), std::string>::value){
+                    if(points_used > points){
                         std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                     }else{
                         P1.ATK += points_used;
@@ -179,7 +174,7 @@ void demo_play(){
                     std::cout << "How many points points will you be using? Don't put all eggs in one basket!: ";
                     std::cin >> points_used;
                     std::cout << std::endl;
-                    if (points_used >= 100 || std::is_same<decltype(points_used), std::string>::value){
+                    if (points_used >= 100){
                         std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                     }else{
                         P1.ATK += points_used;
@@ -189,7 +184,7 @@ void demo_play(){
                 }else{
                     std::cout << std::endl << "How many points are will you be using? ";
                     std::cin >> points_used;
-                    if(points_used > points || std::is_same<decltype(points_used), std::string>::value){
+                    if(points_used > points){
                         std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                     }else{
                         P1.ATK += points_used;
@@ -197,48 +192,10 @@ void demo_play(){
                     }
                     
                 }
-            }else{
-                std::cout << "Bro really doesn't know how to write LOL!" << std::endl;
             }
         }
 
         }
-
-    void customize_moves(){
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Name your first move (Context: This one is for damaging foes!): ";
-        std::getline(std::cin, MoveSet);
-        P1.Move1 = MoveSet;
-        std::cout << std::endl;
-        std::cout << "Name your second move (Context: This one is buff YOUR HP, ATK and/or DEF!): ";
-        std::getline(std::cin, MoveSet);
-        P1.Move2 = MoveSet;
-        std::cout << std::endl;
-        std::cout << "Would you like this move to buff HP(1), ATK(2) or DEF(3)? ";
-        std::cin >> choose_HP_ATK_or_DEF;
-        std::cout << std::endl;
-        while(true){
-            if(choose_HP_ATK_or_DEF == "3"  || choose_HP_ATK_or_DEF == "DEF" || choose_HP_ATK_or_DEF == "def" || choose_HP_ATK_or_DEF == "Def" || choose_HP_ATK_or_DEF == "DEf" || choose_HP_ATK_or_DEF == "dEf" 
-        || choose_HP_ATK_or_DEF == "deF" ){
-                std::cout << "This move increases DEF by 5" << std::endl;
-                break;
-            }else if(choose_HP_ATK_or_DEF == "1" || choose_HP_ATK_or_DEF == "HP" || choose_HP_ATK_or_DEF == "hp" || choose_HP_ATK_or_DEF == "Hp"  || choose_HP_ATK_or_DEF == "hP"){
-                std::cout << "This move increases HP by 5" << std::endl;
-                break;
-            }else if(choose_HP_ATK_or_DEF == "2" || choose_HP_ATK_or_DEF == "ATK" || choose_HP_ATK_or_DEF == "atk" || choose_HP_ATK_or_DEF == "Atk" || choose_HP_ATK_or_DEF == "ATk" || choose_HP_ATK_or_DEF == "aTk" 
-            || choose_HP_ATK_or_DEF == "aTK"){
-                std::cout << "This move increases ATK by 5" << std::endl;
-                break;
-            }else{
-                std::cout << "Imma pretend I didn't see that...";
-            }
-        }
-        
-        
-
-
-
-    }
 int main(){
     
     
@@ -297,9 +254,11 @@ int main(){
 
     std::cout << "Welcome to The Game!" << std::endl;
     customize_stats();
-    customize_moves();
     std::cout << std::endl;
-    
+    if (P1.HP == 100 || P1.ATK == 100 || P1.DEF == 100){ //We can do this as a function
+        std::cout << "I feel sorry that you think you outsmarted me." << std::endl;
+        std::cout <<"You got 1 point for the left-out attributes, yet you know that you are screwed regardless..." << std::endl;
+    }
 
     P1.Introduction();
     
