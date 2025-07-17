@@ -225,12 +225,11 @@ void demo_play(){
         std::cout << "Name your second move (Context: This one is buff YOUR HP, ATK and/or DEF!): ";
         std::getline(std::cin, MoveSet);
         P1.Move2 = MoveSet;
-        
+        std::cout << std::endl;
+        std::cout << "Would you like this move to buff HP(1), ATK(2) or DEF(3)? ";
+        std::cin >> choose_HP_ATK_or_DEF;
+        std::cout << std::endl;
         while(true){
-            std::cout << std::endl;
-            std::cout << "Would you like this move to buff HP(1), ATK(2) or DEF(3)? ";
-            std::cin >> choose_HP_ATK_or_DEF;
-            std::cout << std::endl;
             if(choose_HP_ATK_or_DEF == "3"  || choose_HP_ATK_or_DEF == "DEF" || choose_HP_ATK_or_DEF == "def" || choose_HP_ATK_or_DEF == "Def" || choose_HP_ATK_or_DEF == "DEf" || choose_HP_ATK_or_DEF == "dEf" 
         || choose_HP_ATK_or_DEF == "deF" ){
                 std::cout << "This move increases DEF by 5" << std::endl;
@@ -244,7 +243,7 @@ void demo_play(){
                 break;
             }else{
                 std::cout << "Imma pretend I didn't see that..." << std::endl;
-                
+                break;
             }
         }
         
