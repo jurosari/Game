@@ -10,8 +10,6 @@ I want to build a video game where you are controlling 2 character in a turn bas
 #include <type_traits>
 #include <string>
 #include <limits>
-#include <vector>
-
 
 class Character{
     public:
@@ -122,11 +120,9 @@ void demo_play(){
     }
 
 
-    void customize_stats(Player &p){
-        
+    void customize_stats(){
         std::cout << "You can customize your character's name, stats, and move from the get-go and see how many bossess you can defeat!" << std::endl << std::endl;
         while(points != 0){
-            p.Introduction();
             points_used = 0;
             std::cout << "You have a total of " << points << " points to customize your (1) HP, (2) ATK, and (3) DEF, where do you want to start?" << std::endl;
             std::cin >> stat_choice;
@@ -141,7 +137,7 @@ void demo_play(){
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                     }else{
-                        p.HP += points_used;
+                        P1.HP += points_used;
                         points -= points_used; 
                     }
                     
@@ -153,7 +149,7 @@ void demo_play(){
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                     }else{
-                        p.HP += points_used;
+                        P1.HP += points_used;
                         points -= points_used;
                     }
                     
@@ -169,7 +165,7 @@ void demo_play(){
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                     }else{
-                        p.ATK += points_used;
+                        P1.ATK += points_used;
                         points -= points_used; 
                     }
                     
@@ -181,7 +177,7 @@ void demo_play(){
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                     }else{
-                        p.ATK += points_used;
+                        P1.ATK += points_used;
                         points -= points_used;
                     }
                     
@@ -196,7 +192,7 @@ void demo_play(){
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::cout << "Don't do that. You probably forgot how to read." << std::endl;
                     }else{
-                        p.ATK += points_used;
+                        P1.ATK += points_used;
                         points -= points_used; 
                     }
                     
@@ -208,7 +204,7 @@ void demo_play(){
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::cout << "I guess YOU never had a Math Minor lol" << std::endl;
                     }else{
-                        p.ATK += points_used;
+                        P1.ATK += points_used;
                         points -= points_used;
                     }
                     
@@ -220,16 +216,15 @@ void demo_play(){
 
         }
 
-    void customize_moves(Player &p){
+    void customize_moves(){
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Name your first move (Context: This one is for damaging foes!): ";
         std::getline(std::cin, MoveSet);
-        p.Move1 = MoveSet;
+        P1.Move1 = MoveSet;
         std::cout << std::endl;
         std::cout << "Name your second move (Context: This one is buff YOUR HP, ATK and/or DEF!): ";
         std::getline(std::cin, MoveSet);
-        p.Move2 = MoveSet;
-        p.Move3 = "Fusion";
+        P1.Move2 = MoveSet;
         
         while(true){
             std::cout << std::endl;
@@ -265,7 +260,6 @@ int main(){
     //std::string MoveSet
     //std::int Stats
     //std::string Category[2] = ["Warrior", "Mage"]; //I want the player to select one of the 2 or both of the category
-
 
     
     P1.Name = "Juan";
@@ -306,44 +300,32 @@ int main(){
     std::cout << std::endl;
 
     
-    
+    P1.HP = 0;
+    P1.ATK = 0; 
+    P1.DEF = 0;
 
-    int num_of_player = 2; //The amount of players
-    std::vector<Player> players;
+    
+    P2.HP = 0;
+    P2.ATK = 0; 
+    P2.DEF = 0;
 
     std::cout << "Welcome to The Game!" << std::endl;
-    for (int i = 1; i <= num_of_player; i++){
-        points = 100;
-        Player temp;
-        temp.ATK = 0;
-        temp.DEF = 0;
-        temp.HP = 0;
-        temp.Move3 = "Fusion";
-        temp.Name = "Juan";
-        
-        customize_stats(temp);
-        customize_moves(temp);
-        if (temp.HP == 100 || temp.ATK == 100 || temp.DEF == 100){ //We can do this as a function
+    customize_stats();
+    customize_moves();
+    if (P1.HP == 100 || P1.ATK == 100 || P1.DEF == 100){ //We can do this as a function
 
 
-            std::cout << "I feel sorry that you think you outsmarted me." << std::endl;
+        std::cout << "I feel sorry that you think you outsmarted me." << std::endl;
 
 
-            std::cout <<"You got 1 point for the left-out attributes, yet you know that you are screwed regardless..." << std::endl;
+        std::cout <<"You got 1 point for the left-out attributes, yet you know that you are screwed regardless..." << std::endl;
 
-            
 
-        }
-        players.push_back(temp);
-        temp.Introduction();
-        std::cout << std::endl;    
-        }
-
-        for(Player p : players){
-            p.Introduction();
-        }
-
+    }
+    std::cout << std::endl;
     
+
+    P1.Introduction();
     
 
 
