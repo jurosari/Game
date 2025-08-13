@@ -123,10 +123,24 @@ void demo_play(){
 
 
     void customize_stats(Player &p){
+        std::string name;
+        std::cout << "Name your Hero: ";
+        while(true){
+            if(name.size() == 0){
+                std::getline(std::cin, name);
+                p.Name = name;
+            }else{
+                break;
+            }      
+            }
         
-        std::cout << "You can customize your character's name, stats, and move from the get-go and see how many bossess you can defeat!" << std::endl << std::endl;
+        
+        
+        
+        std::cout << std::endl;
+        std::cout << "Customize your character's stats and moves from the get-go and see how many bossess you can defeat!" << std::endl << std::endl;
         while(points != 0){
-            p.Introduction();
+            std::cout << "HP: " <<  p.HP << " ATK: " << p.ATK << " DEF: " << p.DEF << std::endl;
             points_used = 0;
             std::cout << "You have a total of " << points << " points to customize your (1) HP, (2) ATK, and (3) DEF, where do you want to start?" << std::endl;
             std::cin >> stat_choice;
