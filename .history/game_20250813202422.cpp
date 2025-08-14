@@ -80,7 +80,7 @@ class Fusion: public Player{
         }
 };
 
-class Enemy: public Character{
+class Enemy: Character{
     
        
 };

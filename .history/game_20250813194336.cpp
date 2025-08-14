@@ -80,7 +80,7 @@ class Fusion: public Player{
         }
 };
 
-class Enemy: public Character{
+class Enemy: Character{
     
        
 };
@@ -122,7 +122,7 @@ void demo_play(){
     }
 
 
-    void customize_stats(Player &p){
+void customize_stats(Player &p){
         std::string name;
         std::cout << "Name your Hero: ";
         while(true){
@@ -234,7 +234,7 @@ void demo_play(){
 
         }
 
-    void customize_moves(Player &p){
+void customize_moves(Player &p){
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Name your first move (Context: This one is for damaging foes!): ";
         std::getline(std::cin, MoveSet);
