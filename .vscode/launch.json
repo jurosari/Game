@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/onlyj/Documents/C and C++/C++/Projects/OOP/Juan Project",
-      "program": "c:/Users/onlyj/Documents/C and C++/C++/Projects/OOP/Juan Project/build/Debug/outDebug",
+      "cwd": "C:/Users/onlyj/Documents/Game",
+      "program": "C:/Users/onlyj/Documents/Game/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

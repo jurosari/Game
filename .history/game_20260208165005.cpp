@@ -11,7 +11,7 @@ I want to build a video game where you are controlling 2 character in a turn bas
 #include <string>
 #include <limits>
 #include <vector>
-#include <cmath>
+
 
 class Character{
     public:
@@ -23,12 +23,11 @@ class Character{
         std::string Move2;
         std::string Move3;
         std::string Move4;
-        int MoveEffect1;//Its fixed to heroes = 100, Monster = 50 or 25 (?)
-        int MoveEffect2; //Fixed: Hero = 5, Monster = 10;
+        int MoveEffect1;
+        int MoveEffect2; //Its fixed to heroes 5
         int MoveEffect2_stat; //This will let us know what stat is being buffed 1 = HP; 2 = ATK; 3 = DEF
         int MoveEffect3;
         int MoveEffect4;
-        int fuse_check = 0; //This can used to go through the turns without mentioned the characters that were fused
 
         
         
@@ -37,14 +36,14 @@ class Character{
         void Introduction(){
             std::cout<<"Name: " << Name << std::endl;
             std::cout<<"HP: " << HP << " ATK: " << ATK << " DEF: " << DEF << std::endl;
-            std::cout<<"Moves: " << Move1 << ", " << Move2 << ", and " << Move3 << std::endl; 
+            std::cout<<"Moves: " << Move1 << ", " << Move2 << ", and " << Move3 << std::endl;  
             
         }
 
         int MoveUse1(){ //Mainly the attack towards someone
             std::cout << Name << " used " << Move1 << "!" << std::endl;
-            int damage = static_cast<int>(std::round(MoveEffect1 *((float)ATK/100)));
-            std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+            int damage = MoveEffect1 *((float)ATK/100);
+            //std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
             return damage;
         }
 
@@ -66,7 +65,7 @@ class Character{
         int MoveUse3(){ //Ultimate move, use polymorphism if the one using is the player (fusion) or Enemy (Another move)
             std::cout << Name << " used " << Move3 << "!" << std::endl;
             int damage = MoveEffect1 *((float)ATK/100);
-            std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+            //std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
             return damage;
         }
 
@@ -81,37 +80,29 @@ class Character{
 
 class Player: public Character{
     public:
-        int MoveEffect1 = 100;
-        int MoveEffect2 = 5;
-
+        int fuse_count = 0;
 
         Player MoveUse3(Player Player1, Player Player2){ //FUSION HA
             std::cout << "You Fused with you ally!" << std::endl;
-
-            Player1.fuse_check = 1;
-            Player2.fuse_check = 1;
+            fuse_count = 1;
             Player Fuse;
             Fuse.Name = "Fusion";
             Fuse.ATK = Player1.ATK + Player2.ATK;
             Fuse.DEF = Player1.DEF + Player2.DEF;
             Fuse.HP = Player1.HP + Player2.HP;
-            Fuse.Move1 = Player1.Move1;
-            Fuse.Move2 = Player1.Move2;
-            Fuse.Move3 = Player2.Move1;
-            Fuse.Move4 = Player2.Move2;
 
             return Fuse;
         }
         
 };
-/*
+
 class Fusion: public Player{
     public:
         std::string Move4;
         int MoveEffect4;
 
         void Introduction(Player Fuse){
-            if(fuse_check = 1){
+            if(fuse_count = 1){
                 
 
             }
@@ -120,7 +111,6 @@ class Fusion: public Player{
             std::cout<<"Moves: " << Move1 << ", " << Move2 << "," << Move3 << " , and " << Move4 << std::endl;  
         }
 };
-*/
 
 class Enemy: Character{
     
@@ -145,8 +135,8 @@ void demo_play(){
             break;
         }else{
             P1.Introduction();
-            int damage_1 = P1.MoveUse1();
-            P2.HP = P2.HP - (damage_1 - P2.DEF ); //Formula for damage towards 
+            P1.MoveUse1();
+            P2.HP = P2.HP - (P1.MoveEffect1*((float)P1.ATK/100)/((float)P2.DEF/100)); //Formula for damage towards 
             P2.Introduction();
             P2.MoveUse2();
             
@@ -154,9 +144,8 @@ void demo_play(){
             P1.MoveUse2();
             
             P2.Introduction();
-            int damage_2 = P2.MoveUse1();
-            P1.HP = P1.HP - (damage_2 - P1.DEF );
-            break;
+            P2.MoveUse1();
+            P1.HP = P1.HP - (P2.MoveEffect1*((float)P2.ATK/100)/((float)P1.DEF/100));
         }
     }
 
@@ -336,14 +325,14 @@ int main(){
     P1.Move2 = "Charge";
     P1.Move3 = "Fusion";    
     P1.MoveEffect1 = 40; 
-    //P1.MoveEffect2 = 5;  
+    P1.MoveEffect2 = 5;  
     P1.MoveEffect2_stat = 2;
-    //P1.MoveEffect3 = 0;
+    P1.MoveEffect3 = 0;
 
-    //P1.Introduction();
-    //P1.MoveUse1();
-    //P1.MoveUse2();
-    //P1.MoveUse3(); //Fix this, it should return an int
+    P1.Introduction();
+    P1.MoveUse1();
+    P1.MoveUse2();
+    P1.MoveUse3();
 
     
     P2.Name = "Tos";
@@ -353,15 +342,15 @@ int main(){
     P2.Move1 = "Gazelle Punch"; 
     P2.Move2 = "Block";
     P2.Move3 = "Fusion";    
-    //P2.MoveEffect1 = 40; 
-    //P2.MoveEffect2 = 5;  
+    P2.MoveEffect1 = 40; 
+    P2.MoveEffect2 = 5;  
     P2.MoveEffect2_stat = 3;
     P2.MoveEffect3 = 0;
 
-    //P2.Introduction();
-    //P2.MoveUse1();
-    //P2.MoveUse2();
-    //P2.MoveUse3(); //Fix this, it should return an int
+    P2.Introduction();
+    P2.MoveUse1();
+    P2.MoveUse2();
+    P2.MoveUse3();
     std::cout << std::endl << std::endl;
 
     demo_play();
@@ -372,7 +361,7 @@ int main(){
 
     int num_of_player = 2; //The amount of players
     std::vector<Player> players;
-/*
+
     std::cout << "Welcome to The Game!" << std::endl;
     for (int i = 1; i <= num_of_player; i++){
         points = 100;

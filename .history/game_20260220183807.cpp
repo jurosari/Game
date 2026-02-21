@@ -44,7 +44,7 @@ class Character{
         int MoveUse1(){ //Mainly the attack towards someone
             std::cout << Name << " used " << Move1 << "!" << std::endl;
             int damage = static_cast<int>(std::round(MoveEffect1 *((float)ATK/100)));
-            std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+            //std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
             return damage;
         }
 
@@ -66,7 +66,7 @@ class Character{
         int MoveUse3(){ //Ultimate move, use polymorphism if the one using is the player (fusion) or Enemy (Another move)
             std::cout << Name << " used " << Move3 << "!" << std::endl;
             int damage = MoveEffect1 *((float)ATK/100);
-            std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+            //std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
             return damage;
         }
 
@@ -156,7 +156,6 @@ void demo_play(){
             P2.Introduction();
             int damage_2 = P2.MoveUse1();
             P1.HP = P1.HP - (damage_2 - P1.DEF );
-            break;
         }
     }
 
