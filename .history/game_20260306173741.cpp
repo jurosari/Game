@@ -38,13 +38,12 @@ class Character{
             std::cout<<"Name: " << Name << std::endl;
             std::cout<<"HP: " << HP << " ATK: " << ATK << " DEF: " << DEF << std::endl;
             std::cout<<"Moves: " << Move1 << ", " << Move2 << ", and " << Move3 << std::endl; 
-            //std::cout<<"Move_effect_1: " << MoveEffect1 << " and Move_effect_2: " << MoveEffect2 << " and Move_effect_stats2: " << MoveEffect2_stat << std::endl;
             
         }
 
-        int MoveUse1(Character attacker, Character receiver){ //Mainly the attack towards someone
-            std::cout << attacker.Name << " used " << attacker.Move1 << "!" << std::endl;
-            int damage = static_cast<int>(std::round(attacker.MoveEffect1 *((float)attacker.ATK/100))) - receiver.DEF;
+        int MoveUse1(){ //Mainly the attack towards someone
+            std::cout << Name << " used " << Move1 << "!" << std::endl;
+            int damage = static_cast<int>(std::round(MoveEffect1 *((float)ATK/100)));
             std::cout << "It did " << damage << " Damage" << "!" << std::endl;
             return damage;
         }
@@ -82,26 +81,24 @@ class Character{
 
 class Player: public Character{
     public:
+        int MoveEffect1 = 100;
+        int MoveEffect2 = 5;
 
 
-        Player MoveUse3(Player x, Player y){ //FUSION HA
+        Player MoveUse3(Player Player1, Player Player2){ //FUSION HA
             std::cout << "You Fused with you ally!" << std::endl;
 
-            x.fuse_check = 1;
-            y.fuse_check = 1;
+            Player1.fuse_check = 1;
+            Player2.fuse_check = 1;
             Player Fuse;
             Fuse.Name = "Fusion";
-            Fuse.ATK = x.ATK + y.ATK;
-            Fuse.DEF = x.DEF + y.DEF;
-            Fuse.HP = x.HP + y.HP;
-            Fuse.Move1 = x.Move1;
-            Fuse.Move2 = x.Move2;
-            Fuse.Move3 = y.Move1;
-            Fuse.Move4 = y.Move2;
-            Fuse.MoveEffect1 = x.MoveEffect1 + y.MoveEffect1;
-            Fuse.MoveEffect2 = x.MoveEffect2;
-            Fuse.MoveEffect3 = y.MoveEffect1 + x.MoveEffect1;
-            Fuse.MoveEffect4 = y.MoveEffect2;
+            Fuse.ATK = Player1.ATK + Player2.ATK;
+            Fuse.DEF = Player1.DEF + Player2.DEF;
+            Fuse.HP = Player1.HP + Player2.HP;
+            Fuse.Move1 = Player1.Move1;
+            Fuse.Move2 = Player1.Move2;
+            Fuse.Move3 = Player2.Move1;
+            Fuse.Move4 = Player2.Move2;
 
             return Fuse;
         }
@@ -130,29 +127,26 @@ class Enemy: Character{
        
 };
 
-
+Player P1;
+Player P2;
 std::string stat_choice;
 int points = 100;
 int points_used;
 std::string MoveSet;
 std::string choose_HP_ATK_or_DEF;
 
-void demo_play(Player P1, Player P2){
+void demo_play(){
         while(true){
         if(P1.HP <= 0){
             P1.Faint();
-            Player Fuse = P2.MoveUse3(P2,P1);
-            Fuse.Introduction();
             break;
         }else if (P2.HP <= 0){
             P2.Faint();
-            Player Fuse = P1.MoveUse3(P1,P2);
-            Fuse.Introduction();
             break;
         }else{
             P1.Introduction();
-            int damage_1 = P1.MoveUse1(P1,P2);
-            P2.HP = P2.HP - damage_1; //Formula for damage towards
+            int damage_1 = P1.MoveUse1();
+            P2.HP = P2.HP - (damage_1 - P2.DEF ); //Formula for damage towards 
             P2.Introduction();
             P2.MoveUse2();
             
@@ -160,9 +154,9 @@ void demo_play(Player P1, Player P2){
             P1.MoveUse2();
             
             P2.Introduction();
-            int damage_2 = P2.MoveUse1(P2,P1);
-            P1.HP = P1.HP - damage_2;
-            
+            int damage_2 = P2.MoveUse1();
+            P1.HP = P1.HP - (damage_2 - P1.DEF );
+            break;
         }
     }
 
@@ -333,8 +327,7 @@ int main(){
     //std::string Category[2] = ["Warrior", "Mage"]; //I want the player to select one of the 2 or both of the category
 
 
-    Player P1;
-    Player P2;
+    
     P1.Name = "Juan";
     P1.HP = 100;
     P1.ATK = 25; 
@@ -342,7 +335,7 @@ int main(){
     P1.Move1 = "Dempsey Roll"; 
     P1.Move2 = "Charge";
     P1.Move3 = "Fusion";    
-    P1.MoveEffect1 = 500; 
+    P1.MoveEffect1 = 40; 
     P1.MoveEffect2 = 5;  
     P1.MoveEffect2_stat = 2;
     //P1.MoveEffect3 = 0;
@@ -360,7 +353,7 @@ int main(){
     P2.Move1 = "Gazelle Punch"; 
     P2.Move2 = "Block";
     P2.Move3 = "Fusion";    
-    P2.MoveEffect1 = 100; 
+    P2.MoveEffect1 = 40; 
     P2.MoveEffect2 = 5;  
     P2.MoveEffect2_stat = 3;
     //P2.MoveEffect3 = 0;
@@ -371,7 +364,7 @@ int main(){
     //P2.MoveUse3(); //Fix this, it should return an int
     std::cout << std::endl << std::endl;
 
-    demo_play(P1,P2);
+    demo_play();
     std::cout << std::endl;
 
     

@@ -84,24 +84,20 @@ class Player: public Character{
     public:
 
 
-        Player MoveUse3(Player x, Player y){ //FUSION HA
+        Player MoveUse3(Player Player1, Player Player2){ //FUSION HA
             std::cout << "You Fused with you ally!" << std::endl;
 
-            x.fuse_check = 1;
-            y.fuse_check = 1;
+            Player1.fuse_check = 1;
+            Player2.fuse_check = 1;
             Player Fuse;
             Fuse.Name = "Fusion";
-            Fuse.ATK = x.ATK + y.ATK;
-            Fuse.DEF = x.DEF + y.DEF;
-            Fuse.HP = x.HP + y.HP;
-            Fuse.Move1 = x.Move1;
-            Fuse.Move2 = x.Move2;
-            Fuse.Move3 = y.Move1;
-            Fuse.Move4 = y.Move2;
-            Fuse.MoveEffect1 = x.MoveEffect1 + y.MoveEffect1;
-            Fuse.MoveEffect2 = x.MoveEffect2;
-            Fuse.MoveEffect3 = y.MoveEffect1 + x.MoveEffect1;
-            Fuse.MoveEffect4 = y.MoveEffect2;
+            Fuse.ATK = Player1.ATK + Player2.ATK;
+            Fuse.DEF = Player1.DEF + Player2.DEF;
+            Fuse.HP = Player1.HP + Player2.HP;
+            Fuse.Move1 = Player1.Move1;
+            Fuse.Move2 = Player1.Move2;
+            Fuse.Move3 = Player2.Move1;
+            Fuse.Move4 = Player2.Move2;
 
             return Fuse;
         }

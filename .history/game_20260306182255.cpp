@@ -42,9 +42,9 @@ class Character{
             
         }
 
-        int MoveUse1(Character attacker, Character receiver){ //Mainly the attack towards someone
-            std::cout << attacker.Name << " used " << attacker.Move1 << "!" << std::endl;
-            int damage = static_cast<int>(std::round(attacker.MoveEffect1 *((float)attacker.ATK/100))) - receiver.DEF;
+        int MoveUse1(){ //Mainly the attack towards someone
+            std::cout << Name << " used " << Move1 << "!" << std::endl;
+            int damage = static_cast<int>(std::round(MoveEffect1 *((float)ATK/100)));
             std::cout << "It did " << damage << " Damage" << "!" << std::endl;
             return damage;
         }
@@ -84,24 +84,20 @@ class Player: public Character{
     public:
 
 
-        Player MoveUse3(Player x, Player y){ //FUSION HA
+        Player MoveUse3(Player Player1, Player Player2){ //FUSION HA
             std::cout << "You Fused with you ally!" << std::endl;
 
-            x.fuse_check = 1;
-            y.fuse_check = 1;
+            Player1.fuse_check = 1;
+            Player2.fuse_check = 1;
             Player Fuse;
             Fuse.Name = "Fusion";
-            Fuse.ATK = x.ATK + y.ATK;
-            Fuse.DEF = x.DEF + y.DEF;
-            Fuse.HP = x.HP + y.HP;
-            Fuse.Move1 = x.Move1;
-            Fuse.Move2 = x.Move2;
-            Fuse.Move3 = y.Move1;
-            Fuse.Move4 = y.Move2;
-            Fuse.MoveEffect1 = x.MoveEffect1 + y.MoveEffect1;
-            Fuse.MoveEffect2 = x.MoveEffect2;
-            Fuse.MoveEffect3 = y.MoveEffect1 + x.MoveEffect1;
-            Fuse.MoveEffect4 = y.MoveEffect2;
+            Fuse.ATK = Player1.ATK + Player2.ATK;
+            Fuse.DEF = Player1.DEF + Player2.DEF;
+            Fuse.HP = Player1.HP + Player2.HP;
+            Fuse.Move1 = Player1.Move1;
+            Fuse.Move2 = Player1.Move2;
+            Fuse.Move3 = Player2.Move1;
+            Fuse.Move4 = Player2.Move2;
 
             return Fuse;
         }
@@ -141,18 +137,14 @@ void demo_play(Player P1, Player P2){
         while(true){
         if(P1.HP <= 0){
             P1.Faint();
-            Player Fuse = P2.MoveUse3(P2,P1);
-            Fuse.Introduction();
             break;
         }else if (P2.HP <= 0){
             P2.Faint();
-            Player Fuse = P1.MoveUse3(P1,P2);
-            Fuse.Introduction();
             break;
         }else{
             P1.Introduction();
-            int damage_1 = P1.MoveUse1(P1,P2);
-            P2.HP = P2.HP - damage_1; //Formula for damage towards
+            int damage_1 = P1.MoveUse1();
+            P2.HP = P2.HP - (damage_1 - P2.DEF); //Formula for damage towards
             P2.Introduction();
             P2.MoveUse2();
             
@@ -160,9 +152,9 @@ void demo_play(Player P1, Player P2){
             P1.MoveUse2();
             
             P2.Introduction();
-            int damage_2 = P2.MoveUse1(P2,P1);
-            P1.HP = P1.HP - damage_2;
-            
+            int damage_2 = P2.MoveUse1();
+            P1.HP = P1.HP - (damage_2 - P1.DEF );
+            break;
         }
     }
 
@@ -360,7 +352,7 @@ int main(){
     P2.Move1 = "Gazelle Punch"; 
     P2.Move2 = "Block";
     P2.Move3 = "Fusion";    
-    P2.MoveEffect1 = 100; 
+    P2.MoveEffect1 = 500; 
     P2.MoveEffect2 = 5;  
     P2.MoveEffect2_stat = 3;
     //P2.MoveEffect3 = 0;
