@@ -11,7 +11,7 @@ I want to build a video game where you are controlling 2 character in a turn bas
 #include <string>
 #include <limits>
 #include <vector>
-
+#include <cmath>
 
 class Character{
     public:
@@ -22,10 +22,14 @@ class Character{
         std::string Move1;
         std::string Move2;
         std::string Move3;
-        int MoveEffect1;
-        int MoveEffect2; //Its fixed to heroes 5
+        std::string Move4;
+        int MoveEffect1;//Its fixed to heroes = 100, Monster = 50 or 25 (?)
+        int MoveEffect2; //Fixed: Hero = 5, Monster = 10;
         int MoveEffect2_stat; //This will let us know what stat is being buffed 1 = HP; 2 = ATK; 3 = DEF
         int MoveEffect3;
+        int MoveEffect4;
+        int fuse_check = 0; //This can used to go through the turns without mentioned the characters that were fused
+
         
         
 
@@ -33,13 +37,18 @@ class Character{
         void Introduction(){
             std::cout<<"Name: " << Name << std::endl;
             std::cout<<"HP: " << HP << " ATK: " << ATK << " DEF: " << DEF << std::endl;
-            std::cout<<"Moves: " << Move1 << ", " << Move2 << ", and " << Move3 << std::endl;  
+            std::cout<<"Moves: " << Move1 << ", " << Move2 << ", and " << Move3 << std::endl; 
+            //std::cout<<"Move_effect_1: " << MoveEffect1 << " and Move_effect_2: " << MoveEffect2 << " and Move_effect_stats2: " << MoveEffect2_stat << std::endl;
             
         }
 
-        void MoveUse1(){ //Mainly the attack towards someone
-            std::cout << Name << " used " << Move1 << "!" << std::endl;
-            //std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
+        void MoveUse1(const Character& attacker, Character& receiver){ //Mainly the attack towards someone
+            std::cout << attacker.Name << " used " << attacker.Move1 << "!" << std::endl;
+            int damage = static_cast<int>(std::round(attacker.MoveEffect1 *((float)attacker.ATK/100))) - receiver.DEF;
+            std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+            receiver.HP -= damage;
+            std::cout << receiver.Name << "'s HP: " << receiver.HP << std::endl;
+            //return damage;
         }
 
         void MoveUse2(){ //Mainly a buff towards someone
@@ -57,9 +66,18 @@ class Character{
             } 
         }
 
-        void MoveUse3(){ //Ultimate move, use polymorphism if the one using is the player (fusion) or Enemy (Another move)
-            std::cout << Name << " used " << Move3 << "!" << std::endl;
-            //std::cout << "It did " << MoveEffect1 << " Damage" << "!" << std::endl;
+        int MoveUse3(Character attacker, Character receiver){ //Mainly the attack towards someone
+            std::cout << attacker.Name << " used " << attacker.Move3 << "!" << std::endl;
+            int damage = static_cast<int>(std::round(attacker.MoveEffect3 *((float)attacker.ATK/100))) - receiver.DEF;
+            std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+            return damage;
+        }
+
+        int MoveUse4(Character attacker, Character receiver){ //Mainly the attack towards someone
+            std::cout << attacker.Name << " used " << attacker.Move4 << "!" << std::endl;
+            int damage = static_cast<int>(std::round(attacker.MoveEffect4 *((float)attacker.ATK/100))) - receiver.DEF;
+            std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+            return damage;
         }
 
         //void DamageRecieve1(){
@@ -73,49 +91,84 @@ class Character{
 
 class Player: public Character{
     public:
-        void MoveUse3(){ //FUSION HA
+
+
+        Player MoveUse3(Player x, Player y){ //FUSION HA
+            if (x.fuse_check == 1|| y.fuse_check == 1){
+                std::cout << x.Name << " used " << x.Move1 << "!" << std::endl;
+                int damage = static_cast<int>(std::round(x.MoveEffect1 *((float)x.ATK/100))) - y.DEF;
+                std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+                y.HP -= damage;
+            }
+            
             std::cout << "You Fused with you ally!" << std::endl;
+
+            x.fuse_check = 1;
+            y.fuse_check = 1;
+            Player Fuse;
+            Fuse.Name = "Fusion";
+            Fuse.ATK = x.ATK + y.ATK;
+            Fuse.DEF = x.DEF + y.DEF;
+            Fuse.HP = x.HP + y.HP;
+            Fuse.Move1 = x.Move1;
+            Fuse.Move2 = x.Move2;
+            Fuse.Move3 = y.Move1;
+            Fuse.Move4 = y.Move2;
+            Fuse.MoveEffect1 = x.MoveEffect1 + y.MoveEffect1;
+            Fuse.MoveEffect2 = x.MoveEffect2;
+            Fuse.MoveEffect3 = y.MoveEffect1 + x.MoveEffect1;
+            Fuse.MoveEffect4 = y.MoveEffect2;
+
+            return Fuse;
         }
         
 };
-
+/*
 class Fusion: public Player{
     public:
         std::string Move4;
         int MoveEffect4;
 
-        void Introduction(){
+        void Introduction(Player Fuse){
+            if(fuse_check = 1){
+                
+
+            }
             std::cout<<"Name: " << Name << std::endl;
             std::cout<<"HP: " << HP << " ATK: " << ATK << " DEF: " << DEF << std::endl;
             std::cout<<"Moves: " << Move1 << ", " << Move2 << "," << Move3 << " , and " << Move4 << std::endl;  
         }
 };
+*/
 
 class Enemy: Character{
     
        
 };
 
-Player P1;
-Player P2;
+
 std::string stat_choice;
 int points = 100;
 int points_used;
 std::string MoveSet;
 std::string choose_HP_ATK_or_DEF;
 
-void demo_play(){
+void demo_play(Player P1, Player P2){
         while(true){
         if(P1.HP <= 0){
             P1.Faint();
+            Player Fuse = P2.MoveUse3(P2,P1);
+            Fuse.Introduction();
             break;
         }else if (P2.HP <= 0){
             P2.Faint();
+            Player Fuse = P1.MoveUse3(P1,P2);
+            Fuse.Introduction();
             break;
         }else{
             P1.Introduction();
-            P1.MoveUse1();
-            P2.HP = P2.HP - (P1.MoveEffect1*((float)P1.ATK/100)/((float)P2.DEF/100)); //Formula for damage towards 
+            P1.MoveUse1(P1,P2);
+            //P2.HP = P2.HP - damage_1; //Formula for damage towards
             P2.Introduction();
             P2.MoveUse2();
             
@@ -123,8 +176,9 @@ void demo_play(){
             P1.MoveUse2();
             
             P2.Introduction();
-            P2.MoveUse1();
-            P1.HP = P1.HP - (P2.MoveEffect1*((float)P2.ATK/100)/((float)P1.DEF/100));
+            P2.MoveUse1(P2,P1);
+            //P1.HP = P1.HP - damage_2;
+            
         }
     }
 
@@ -295,7 +349,8 @@ int main(){
     //std::string Category[2] = ["Warrior", "Mage"]; //I want the player to select one of the 2 or both of the category
 
 
-    
+    Player P1;
+    Player P2;
     P1.Name = "Juan";
     P1.HP = 100;
     P1.ATK = 25; 
@@ -303,15 +358,15 @@ int main(){
     P1.Move1 = "Dempsey Roll"; 
     P1.Move2 = "Charge";
     P1.Move3 = "Fusion";    
-    P1.MoveEffect1 = 40; 
+    P1.MoveEffect1 = 500; 
     P1.MoveEffect2 = 5;  
     P1.MoveEffect2_stat = 2;
-    P1.MoveEffect3 = 0;
+    //P1.MoveEffect3 = 0;
 
-    P1.Introduction();
-    P1.MoveUse1();
-    P1.MoveUse2();
-    P1.MoveUse3();
+    //P1.Introduction();
+    //P1.MoveUse1();
+    //P1.MoveUse2();
+    //P1.MoveUse3(); //Fix this, it should return an int
 
     
     P2.Name = "Tos";
@@ -321,18 +376,18 @@ int main(){
     P2.Move1 = "Gazelle Punch"; 
     P2.Move2 = "Block";
     P2.Move3 = "Fusion";    
-    P2.MoveEffect1 = 40; 
+    P2.MoveEffect1 = 100; 
     P2.MoveEffect2 = 5;  
     P2.MoveEffect2_stat = 3;
-    P2.MoveEffect3 = 0;
+    //P2.MoveEffect3 = 0;
 
-    P2.Introduction();
-    P2.MoveUse1();
-    P2.MoveUse2();
-    P2.MoveUse3();
+    //P2.Introduction();
+    //P2.MoveUse1();
+    //P2.MoveUse2();
+    //P2.MoveUse3(); //Fix this, it should return an int
     std::cout << std::endl << std::endl;
 
-    demo_play();
+    demo_play(P1,P2);
     std::cout << std::endl;
 
     
@@ -340,7 +395,7 @@ int main(){
 
     int num_of_player = 2; //The amount of players
     std::vector<Player> players;
-
+/*
     std::cout << "Welcome to The Game!" << std::endl;
     for (int i = 1; i <= num_of_player; i++){
         points = 100;

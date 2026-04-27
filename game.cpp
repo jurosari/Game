@@ -42,11 +42,13 @@ class Character{
             
         }
 
-        int MoveUse1(Character attacker, Character receiver){ //Mainly the attack towards someone
+        void MoveUse1(const Character& attacker, Character& receiver){ //Mainly the attack towards someone
             std::cout << attacker.Name << " used " << attacker.Move1 << "!" << std::endl;
             int damage = static_cast<int>(std::round(attacker.MoveEffect1 *((float)attacker.ATK/100))) - receiver.DEF;
             std::cout << "It did " << damage << " Damage" << "!" << std::endl;
-            return damage;
+            receiver.HP -= damage;
+            std::cout << receiver.Name << "'s HP: " << receiver.HP << std::endl;
+            //return damage;
         }
 
         void MoveUse2(){ //Mainly a buff towards someone
@@ -64,9 +66,16 @@ class Character{
             } 
         }
 
-        int MoveUse3(){ //Ultimate move, use polymorphism if the one using is the player (fusion) or Enemy (Another move)
-            std::cout << Name << " used " << Move3 << "!" << std::endl;
-            int damage = MoveEffect1 *((float)ATK/100);
+        int MoveUse3(const Character& attacker, Character& receiver){ //Mainly the attack towards someone
+            std::cout << attacker.Name << " used " << attacker.Move3 << "!" << std::endl;
+            int damage = static_cast<int>(std::round(attacker.MoveEffect3 *((float)attacker.ATK/100))) - receiver.DEF;
+            std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+            return damage;
+        }
+
+        int MoveUse4(Character attacker, Character receiver){ //Mainly the attack towards someone
+            std::cout << attacker.Name << " used " << attacker.Move4 << "!" << std::endl;
+            int damage = static_cast<int>(std::round(attacker.MoveEffect4 *((float)attacker.ATK/100))) - receiver.DEF;
             std::cout << "It did " << damage << " Damage" << "!" << std::endl;
             return damage;
         }
@@ -85,6 +94,13 @@ class Player: public Character{
 
 
         Player MoveUse3(Player x, Player y){ //FUSION HA
+            if (x.fuse_check == 1|| y.fuse_check == 1){
+                std::cout << x.Name << " used " << x.Move1 << "!" << std::endl;
+                int damage = static_cast<int>(std::round(x.MoveEffect1 *((float)x.ATK/100))) - y.DEF;
+                std::cout << "It did " << damage << " Damage" << "!" << std::endl;
+                y.HP -= damage;
+            }
+            
             std::cout << "You Fused with you ally!" << std::endl;
 
             x.fuse_check = 1;
@@ -151,8 +167,8 @@ void demo_play(Player P1, Player P2){
             break;
         }else{
             P1.Introduction();
-            int damage_1 = P1.MoveUse1(P1,P2);
-            P2.HP = P2.HP - damage_1; //Formula for damage towards
+            P1.MoveUse1(P1,P2);
+            //P2.HP = P2.HP - damage_1; //Formula for damage towards
             P2.Introduction();
             P2.MoveUse2();
             
@@ -160,8 +176,8 @@ void demo_play(Player P1, Player P2){
             P1.MoveUse2();
             
             P2.Introduction();
-            int damage_2 = P2.MoveUse1(P2,P1);
-            P1.HP = P1.HP - damage_2;
+            P2.MoveUse1(P2,P1);
+            //P1.HP = P1.HP - damage_2;
             
         }
     }
